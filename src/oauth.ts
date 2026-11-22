@@ -22,7 +22,7 @@ authorizeURL(options: {
   scope: string;
   state: string;
 }): string {
-  const { tokenHost, authorizePath } = this.clientConfig;
+  const { tokenHost, authorizePath } = this.clientConfig.target;
 
   const params = new URLSearchParams({
     response_type: "code",
