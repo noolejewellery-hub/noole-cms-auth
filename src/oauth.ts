@@ -39,7 +39,7 @@ authorizeURL(options: {
     code: string;
     redirect_uri: string;
   }): Promise<string> {
-    const { tokenHost, tokenPath } = this.clientConfig;
+    const { tokenHost, tokenPath } = this.clientConfig.target;
 
     const response = await fetch(
       new URL(tokenPath, tokenHost).toString(),
