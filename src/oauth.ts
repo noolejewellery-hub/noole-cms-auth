@@ -16,22 +16,24 @@ export class OAuthClient {
     this.clientConfig = config;
   }
 
-  authorizeURL(options: {
-    redirect_uri: string;
-    scope: string;
-    state: string;
-  }): string {
-    const { tokenHost, authorizePath } = this.clientConfig;
+  
+authorizeURL(options: {
+  redirect_uri: string;
+  scope: string;
+  state: string;
+}): string {
+  const { tokenHost, authorizePath } = this.clientConfig;
 
-    const url = new URL(`${tokenHost}${authorizePath}`);
-    url.searchParams.set("response_type", "code");
-    url.searchParams.set("client_id", this.clientConfig.id);
-    url.searchParams.set("redirect_uri", options.redirect_uri);
-    url.searchParams.set("scope", options.scope);
-    url.searchParams.set("state", options.state);
+  const params = new URLSearchParams({
+    response_type: "code",
+    client_id: this.clientConfig.id,
+    redirect_uri: options.redirect_uri,
+    scope: options.scope,
+    state: options.state,
+  });
 
-    return url.toString();
-  }
+  return `${tokenHost}${authorizePath}?${params.toString()}`;
+}
 
   async getToken(options: {
     code: string;
