@@ -23,7 +23,7 @@ export class OAuthClient {
   }): string {
     const { tokenHost, authorizePath } = this.clientConfig;
 
-    const url = new URL(authorizePath, tokenHost);
+    const url = new URL(`${tokenHost}${authorizePath}`);
     url.searchParams.set("response_type", "code");
     url.searchParams.set("client_id", this.clientConfig.id);
     url.searchParams.set("redirect_uri", options.redirect_uri);
